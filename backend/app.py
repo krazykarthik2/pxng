@@ -7,7 +7,9 @@ import uuid
 from datetime import datetime, timedelta
 import jwt
 from pydantic import BaseModel
-
+from database.neo4j_client import Neo4jClient
+from database.vector_store import VectorStore
+from utils.embeddings import EmbeddingService
 # Load environment variables
 dotenv.load_dotenv()
 
@@ -25,7 +27,7 @@ app.add_middleware(
 # Initialize clients and services
 neo4j_client = Neo4jClient(
     uri=os.getenv("NEO4J_URI"),
-    user=os.getenv("NEO4J_USER"),
+    user=os.getenv("NEO4J_USERNAME"),
     password=os.getenv("NEO4J_PASSWORD")
 )
 
@@ -39,6 +41,9 @@ embedding_service = EmbeddingService(
     embedding_model=os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
 )
 
+from services.chat_service import ChatService
+from services.document_service import DocumentService   
+from services.rag_service    import RAGService
 # Initialize services
 chat_service = ChatService(neo4j_client, vector_store, embedding_service)
 document_service = DocumentService(neo4j_client, vector_store, embedding_service)
@@ -363,4 +368,3 @@ async def get_group_relationships(
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
-

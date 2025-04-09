@@ -1,3 +1,7 @@
+
+from neo4j import GraphDatabase
+from typing import Dict, List, Any, Optional
+
 USER_NODE = "User"
 GROUP_NODE = "Group"
 COMMUNITY_NODE = "Community"
@@ -14,8 +18,6 @@ HAS_CONTEXT = "HAS_CONTEXT"
 CAN_ACCESS = "CAN_ACCESS"
 REFERENCES = "REFERENCES"
 CONNECTED_TO = "CONNECTED_TO"
-from neo4j import GraphDatabase
-from typing import Dict, List, Any, Optional
 
 class Neo4jClient:
     def __init__(self, uri: str, user: str, password: str):

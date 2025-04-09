@@ -8,12 +8,14 @@ services:
     depends_on:
       - neo4j
     environment:
-      - NEO4J_URI=bolt://neo4j:7687
-      - NEO4J_USER=neo4j
-      - NEO4J_PASSWORD=password
       - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - JWT_SECRET=${JWT_SECRET}
+      - JWT_SECRET=af5adabd973c6946f6dc554b241934379c779d4b316790b5a4b4ba3e9c503510
       - FAISS_INDEX_PATH=/app/data/vectors.index
+      - NEO4J_URI=neo4j+s://da39b190.databases.neo4j.io
+      - NEO4J_USERNAME=neo4j
+      - NEO4J_PASSWORD=3-VrxyQbo86GUbxFH0BbycjPQiUFOCXxq9ECMX8tdrM
+      - AURA_INSTANCEID=da39b190
+      - AURA_INSTANCENAME=Free instance
     volumes:
       - ./data:/app/data
 
